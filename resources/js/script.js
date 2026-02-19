@@ -12,11 +12,11 @@ function show_prompt(text) {
   var password_entry = document.querySelector("#password_entry");
   if (!isVisiblePass(password_container)) {
     var users = document.querySelectorAll(".user");
-    var user_node = document.querySelector("#"+selected_user);
+    var user_node = document.querySelector("#" + selected_user);
     var rect = user_node.getClientRects()[0];
     var parentRect = user_node.parentElement.getClientRects()[0];
-    var center = parentRect.width/2;
-    var left = center - rect.width/2 - rect.left;
+    var center = parentRect.width / 2;
+    var left = center - rect.width / 2 - rect.left;
     var i = 0;
     if (left < 5 && left > -5) {
       left = 0;
@@ -24,20 +24,20 @@ function show_prompt(text) {
     for (i = 0; i < users.length; i++) {
       var node = users[i];
       setVisible(node, node.id === selected_user);
-      node.style.left= left;
+      node.style.left = left;
     }
 
     setVisiblePass(password_container, true);
-    password_entry.placeholder= text.replace(":", "");
+    password_entry.placeholder = text.replace(":", "");
   }
-  password_entry.value= "";
+  password_entry.value = "";
   password_entry.focus();
 }
 
 // called when the greeter asks to show a message
 function show_message(text) {
   var message = document.querySelector("#message_content");
-  message.innerHTML= text;
+  message.innerHTML = text;
   if (text) {
     document.querySelector("#message").classList.remove("hidden");
   } else {
@@ -65,7 +65,7 @@ function authentication_complete() {
 
 // called when the greeter wants us to perform a timed login
 function timed_login(user) {
-  lightdm.login (lightdm.timed_login_user);
+  lightdm.login(lightdm.timed_login_user);
   //setTimeout('throbber()', 1000);
 }
 
@@ -80,7 +80,7 @@ function start_authentication(username) {
 
 function provide_secret() {
   show_message("Logging in...");
-  entry = document.querySelector('#password_entry');
+  entry = document.querySelector("#password_entry");
   lightdm.provide_secret(entry.value);
 }
 
@@ -113,8 +113,8 @@ function initialize_sessions() {
 function show_users() {
   var users = document.querySelectorAll(".user");
   var i = 0;
-  for (i= 0; i < users.length; i++) {
-    setVisible(users[i], true);
+  for (i = 0; i < users.length; i++) {
+    users[i].classList.remove("hidden");
     users[i].style.left = 0;
   }
   setVisiblePass(document.querySelector("#password_container"), false);
@@ -166,14 +166,18 @@ function update_time() {
   var hh = date.getHours();
   var mm = date.getMinutes();
   var ss = date.getSeconds();
-  var suffix= "AM";
+  var suffix = "AM";
   if (hh > 12) {
     hh = hh - 12;
     suffix = "PM";
   }
-  if (mm < 10) { mm = "0"+mm; }
-  if (ss < 10) { ss = "0"+ss; }
-  time.innerHTML = hh+":"+mm + " " + suffix;
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+  if (ss < 10) {
+    ss = "0" + ss;
+  }
+  time.innerHTML = hh + ":" + mm + " " + suffix;
 }
 //////////////////////////////////
 // Initialization
@@ -213,7 +217,15 @@ function initialize_users() {
     userNode.onclick = user_clicked;
     parent.appendChild(userNode);
   }
-  setTimeout(show_users, 400);
+  show_users();
+  // Add smooth class after initialization to enable animations for interactions
+  // but not on initial load
+  setTimeout(function () {
+    var users = document.querySelectorAll(".user");
+    for (var i = 0; i < users.length; i++) {
+      users[i].classList.add("smooth");
+    }
+  }, 50);
 }
 
 function initialize_timer() {
