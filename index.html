@@ -5,13 +5,12 @@
     <script type="text/javascript" src="resources/js/mock.js"></script>
     <script type="text/javascript" src="resources/js/script.js"></script>
   </head>
-  <body onload="initialize()" oncontextmenu="return false;">
-	<div class="cover"></div>
+  <body oncontextmenu="return false;">
+    <div class="cover"></div>
     <div class="header">
-    <div class="headertext"></div> <!-- you can change this to whatever -->
+      <div class="headertext"></div> <!-- you can change this to whatever -->
     </div>
-<div class="time" id="current_time">00:00 AM</div>
-    </div>
+    <div class="time" id="current_time">00:00 AM</div>
     <div class="login_content">
       <div class="login_container">
         <div class="logo-container">
@@ -26,13 +25,16 @@
           </div>
         </div>
         <div id="password_container" class="pass passhidden passsmooth">
-          <form action="javascript: provide_secret()" class="password_prompt">
+          <form onsubmit="handle_form_submit(); return false;" class="password_prompt">
+            <div id="username_field_container" class="hidden">
+              <input id="username_entry" type="text" placeholder="Username" autocomplete="off" />
+            </div>
             <input id="password_entry" type="password" placeholder="Password" />
             <div id="session_container" class="hidden">
               <div id="session_template">
                 <label>
                   <input type="radio" name="session">&nbsp;
-                  <span class="session_label"></a>
+                  <span class="session_label"></span>
                 </label>
               </div>
             </div>
