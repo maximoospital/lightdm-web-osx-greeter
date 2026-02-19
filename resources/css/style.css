@@ -28,14 +28,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(
-        ellipse 100% 80% at center,
-        #484a52 0%,
-        #45474e 25%,
-        #3e4047 45%,
-        #32343a 65%,
-        #26282d 100%
-    );
+    background: radial-gradient(circle at 50% 35%, #595b63 0%, #2b2c31 100%);
     animation: gradientFadeIn 1.2s ease-out forwards;
     z-index: -2;
 }
