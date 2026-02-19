@@ -1,189 +1,237 @@
 @font-face {
-    font-family: 'ArilloUI';
-    src: url('resources/font/Arillo_UI_Regular.ttf') format('truetype');
+    font-family: "LucidaGrande";
+    src: url("../font/LuGra.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 
-
 * {
-  font: normal 100% "ArilloUI";
-  font-family: Arial, Helvetica, 'ArilloUI', sans-serif;
-cursor: default;
+    font: normal 98% "LucidaGrande";
+    font-family: "LucidaGrande", Helvetica, Arial, sans-serif;
+    cursor: default;
 }
 
 body {
-  background-color: #4c4c4c;
-  background: url('resources/img/logon.png');
-  -webkit-background-size: cover;
-  background-size: cover;
-  display: table;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-
-  font-size: 10pt;
-  color:white;
+    background-color: #515259;
+    display: table;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-size: 10pt;
+    color: white;
 }
 
-.cover{
-  width:100%;
-  height:100%;
-  background:rgba(76,76,76,0.65);
-  position: absolute;
-  z-index:-1;
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse 100% 80% at center,
+        #484a52 0%,
+        #45474e 25%,
+        #3e4047 45%,
+        #32343a 65%,
+        #26282d 100%
+    );
+    animation: gradientFadeIn 1.2s ease-out forwards;
+    z-index: -2;
 }
 
-body, span, div, img {
-  -webkit-user-select: none;
+@keyframes gradientFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.cover {
+    display: none;
+}
+
+body,
+span,
+div,
+img {
+    -webkit-user-select: none;
 }
 
 input {
-  border: none;
-  border-radius: 4px;
-  padding: 6px;
-  background: rgba(255,255,255,0.16);
-  color:rgba(255,255,255,0.82);
+    border: none;
+    border-radius: 4px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.82);
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .smooth {
-  -webkit-transition: visibility 0s, opacity 0.3s, left 0.4s;
+    -webkit-transition:
+        visibility 0s,
+        opacity 0.3s,
+        left 0.4s;
 }
 
 .hidden {
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition-delay: 0.3s, 0s, 0s;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition-delay: 0.3s, 0s, 0s;
 }
 
 .passhidden {
-  opacity: 0;
-  position:relative;
+    opacity: 0;
+    position: relative;
 }
 
 .passsmooth {
-  -webkit-transition: opacity 0.1s;
+    -webkit-transition: opacity 0.1s;
 }
 
 .center {
-  text-align: center;
+    text-align: center;
 }
 
-.pass{
-  position:relative;
-  top: 4px;
-  text-align: center;
+.pass {
+    position: relative;
+    top: 4px;
+    text-align: center;
 }
-
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 120px;
-  text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    text-align: center;
 }
 
-.footer, .header {
-  width: 100%;
+.footer,
+.header {
+    width: 100%;
 }
 
-.headertext{
-float: left;
-  line-height: 25px;
-  font-size: 11pt;
-  margin-left: 10px;
-  margin-top: 5px;}
+.headertext {
+    float: left;
+    line-height: 25px;
+    font-size: 11pt;
+    margin-left: 10px;
+    margin-top: 5px;
+}
 .time {
-  float: right;
-  line-height: 25px;
-  font-size: 11pt;
-  margin-right: 10px;
-  margin-top: 5px;
+    float: right;
+    line-height: 25px;
+    font-size: 11pt;
+    margin-right: 10px;
+    margin-top: 5px;
+    opacity: 0.7;
+    text-shadow: 0 1.5px 4.5px rgba(0, 0, 0, 0.5);
 }
 
 .login_content {
-  display: table-row;
-  top: -102px;
-  position: relative;
+    display: table-row;
+    top: -102px;
+    position: relative;
 }
 
 .login_container {
-  display: table-cell;
-  vertical-align: middle;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #message {
-  display: table-row;
-  -webkit-transition: visibility 0s, opacity 0.3s, height 0.3s;
-  height: 130px;
+    display: table-row;
+    -webkit-transition:
+        visibility 0s,
+        opacity 0.3s,
+        height 0.3s;
+    height: 130px;
 }
 
 #message.hidden {
-  height: 0px;
+    height: 0px;
 }
 
 #message_content {
-  display: table-cell;
-  vertical-align: top;
-  text-align: center;
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
 }
 
 #message_content.error {
-  color: #FFF;
+    color: #fff;
 }
 
 .user {
-  display: inline-block;
-  margin-left: 20px;
-  margin-right: 20px; 
-  margin-bottom: 20px;
-  position: relative;
+    display: inline-block;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.user:hover {
+    opacity: 1;
 }
 
 .user:active {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .user_image_wrapper {
-  border-radius: 80px;
-  border: 2px solid #fff;
-  -webkit-transition: all 0.3s ease-in-out;
-  margin:10px;
+    border-radius: 80px;
+    -webkit-transition: all 0.3s ease-in-out;
+    margin: 10px;
+    box-shadow:
+        0 1.5px 0.75px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.15);
 }
 
 .user_image {
-  border-radius: 60px;
+    border-radius: 60px;
 }
 
-.user_image, .user_image_wrapper{
-    width: 64px;
-    height: 64px;
+.user_image,
+.user_image_wrapper {
+    width: 86px;
+    height: 86px;
 }
 
 .user_name {
-  display: block;
-  margin-top: 20px;
-
+    display: block;
+    margin-top: 20px;
+    opacity: 0.7;
+    text-shadow: 0 1.5px 4.5px rgba(0, 0, 0, 0.5);
 }
 
 .action {
-  display: inline-block;
-  width: 80px;
-  margin-left: 40px;
-  margin-right: 40px;
+    display: inline-block;
+    width: 80px;
+    margin-left: 8px;
+    margin-right: 8px;
+    opacity: 0.5;
+    text-shadow: 0 1.5px 4.5px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.25s ease;
+}
+
+.action:hover {
+    opacity: 1;
 }
 
 .action_image {
-  width: 32px;
-  height: 36px;
-  margin-bottom: 9px;
+    width: 36px;
+    height: 40px;
+    margin-bottom: 6px;
 }
 
 .action_label {
-  color: white;
+    color: white;
 }
