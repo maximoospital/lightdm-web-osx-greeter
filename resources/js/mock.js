@@ -1,5 +1,18 @@
 // mock lightdm for local browser testing
-// Simulates the lightdm-webkit2-greeter JavaScript API
+// Simulates the nody-greeter / web-greeter JavaScript API
+
+// --- Signal helper ---
+function MockSignal() {
+  this._callbacks = [];
+}
+MockSignal.prototype.connect = function(cb) {
+  this._callbacks.push(cb);
+};
+MockSignal.prototype.emit = function() {
+  var args = arguments;
+  this._callbacks.forEach(function(cb) { cb.apply(null, args); });
+};
+
 if (typeof lightdm === "undefined") {
   lightdm = {};
 
@@ -26,6 +39,7 @@ if (typeof lightdm === "undefined") {
     { key: "xfce", name: "Xfce Session", comment: "" },
     { key: "openbox", name: "Openbox", comment: "" },
   ];
+  lightdm.remote_sessions = [];
   lightdm.default_session = lightdm.sessions[0].key; // string key in new API
 
   // Authentication state
@@ -40,53 +54,87 @@ if (typeof lightdm === "undefined") {
   lightdm.can_restart = true;
   lightdm.can_shutdown = true;
 
-  // Greeter behaviour flags
-  lightdm.hide_users = false;    // set true to test manual username entry
-  lightdm.lock_hint = false;     // set true to test lock-screen mode
-  lightdm.has_guest_account = false; // set true to test guest login
+  // Greeter behaviour flags (nody-greeter names; legacy aliases kept below)
+  lightdm.hide_users_hint = false;       // set true to test manual username entry
+  lightdm.hide_users = false;            // legacy alias
+  lightdm.lock_hint = false;             // set true to test lock-screen mode
+  lightdm.has_guest_account = false;     // set true to test guest login
+  lightdm.show_manual_login_hint = false;// set true to show "Other…" option
+  lightdm.show_remote_login_hint = false;
+  lightdm.select_user_hint = null;       // set to a username string to pre-select
+  lightdm.select_guest_hint = false;
 
   // Autologin
+  lightdm.autologin_guest = false;
   lightdm.autologin_user = null;
   lightdm.autologin_timeout = 0;
-  lightdm.timed_login_delay = 0; // set > 0 to simulate timed login
-  lightdm.timed_login_user = lightdm.timed_login_delay > 0 ? lightdm.sessions[0] : null;
+  lightdm.timed_login_delay = 0; // set > 0 to simulate timed login (ms)
 
-  // Users
+  // Battery
+  lightdm.can_access_battery = false;
+  lightdm.battery_data = null;
+  lightdm.battery_update = new MockSignal();
+
+  // Brightness
+  lightdm.can_access_brightness = false;
+  lightdm.brightness = 100;
+
+  // Signals
+  lightdm.idle = new MockSignal();
+  lightdm.reset = new MockSignal();
+  lightdm.authentication_complete = new MockSignal();
+  lightdm.show_message = new MockSignal();
+  lightdm.show_prompt = new MockSignal();
+  lightdm.autologin_timer_expired = new MockSignal();
+
+  // Users (nody-greeter uses user.username; user.name kept for compat)
   lightdm.users = [
     {
+      username: "clarkk",
       name: "clarkk",
       real_name: "Superman",
       display_name: "Clark Kent",
-      image: "/resources/img/test.png",
+      image: "resources/img/test.png",
       language: "en_US",
       layout: null,
+      layouts: [],
       session: "xfce",
       logged_in: false,
+      home_directory: "/home/clarkk",
+      background: "",
     },
     {
+      username: "brucew",
       name: "brucew",
       real_name: "Batman",
       display_name: "Bruce Wayne",
       image: "/home/brokenImage.gif",
       language: "en_US",
       layout: null,
+      layouts: [],
       session: "xfce",
       logged_in: false,
+      home_directory: "/home/brucew",
+      background: "",
     },
     {
+      username: "peterp",
       name: "peterp",
       real_name: "Spiderman",
       display_name: "Peter Parker",
       image: "",
       language: "en_US",
       layout: null,
+      layouts: [],
       session: "xfce",
       logged_in: true,
+      home_directory: "/home/peterp",
+      background: "",
     },
   ];
   lightdm.num_users = lightdm.users.length;
 
-  // --- Methods (new lightdm-webkit2-greeter API) ---
+  // --- Methods ---
 
   lightdm.authenticate = function(username) {
     _lightdm_mock_check_argument_length(arguments, 1);
@@ -100,7 +148,7 @@ if (typeof lightdm === "undefined") {
     }
     lightdm._username = username;
     lightdm.in_authentication = true;
-    show_prompt("Password: ");
+    show_prompt("Password: ", 1);
   };
 
   lightdm.authenticate_as_guest = function() {
@@ -175,17 +223,47 @@ if (typeof lightdm === "undefined") {
     document.location.reload(true);
   };
 
+  lightdm.brightness_set = function(value) {
+    lightdm.brightness = Math.max(0, Math.min(100, value));
+  };
+
+  lightdm.brightness_increase = function() {
+    lightdm.brightness_set(lightdm.brightness + 10);
+  };
+
+  lightdm.brightness_decrease = function() {
+    lightdm.brightness_set(lightdm.brightness - 10);
+  };
+
+  // Simulate timed login
   if (lightdm.timed_login_delay > 0) {
     setTimeout(function() {
-      if (!lightdm._timed_login_cancelled) timed_login();
+      if (!lightdm._timed_login_cancelled) autologin_timer_expired();
     }, lightdm.timed_login_delay);
   }
+
+  // Simulate idle after 30s of inactivity (for local testing)
+  var _idle_timer = null;
+  var _idle_timeout = 30000;
+  function _reset_idle() {
+    clearTimeout(_idle_timer);
+    if (document.body.classList.contains("idle")) {
+      lightdm.reset.emit();
+    }
+    _idle_timer = setTimeout(function() {
+      lightdm.idle.emit();
+    }, _idle_timeout);
+  }
+  document.addEventListener("mousemove", _reset_idle);
+  document.addEventListener("keydown", _reset_idle);
+  _reset_idle();
 }
 
 // --- greeter_config mock ---
 if (typeof greeter_config === "undefined") {
   greeter_config = {
     branding: {
+      background_images_dir: "",
       logo: "",
       user_image: ""
     },
@@ -194,10 +272,18 @@ if (typeof greeter_config === "undefined") {
       detect_theme_errors: true,
       screensaver_timeout: 300,
       secure_mode: false,
-      time_format: "LT",
       time_language: "",
-      webkit_theme: ""
-    }
+      theme: ""
+    },
+    features: {
+      battery: false,
+      backlight: {
+        enabled: false,
+        value: 100,
+        steps: 10
+      }
+    },
+    layouts: []
   };
 }
 
@@ -216,6 +302,9 @@ if (typeof theme_utils === "undefined") {
     dirlist: function(path, only_images, callback) {
       callback([]);
     },
+    dirlist_sync: function(path, only_images) {
+      return [];
+    },
     esc_html: function(text) {
       return text
         .replace(/&/g, "&amp;")
@@ -223,9 +312,29 @@ if (typeof theme_utils === "undefined") {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
     },
+    get_current_localized_date: function() {
+      return new Date().toLocaleDateString();
+    },
     get_current_localized_time: function() {
-      return new Date().toLocaleTimeString();
+      return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     }
+  };
+}
+
+// --- greeter_comm mock ---
+if (typeof greeter_comm === "undefined") {
+  greeter_comm = {
+    window_metadata: {
+      id: 0,
+      is_primary: true,
+      position: { x: 0, y: 0 },
+      size: { width: window.screen.width, height: window.screen.height },
+      overallBoundary: { minX: 0, minY: 0, maxX: window.screen.width, maxY: window.screen.height }
+    },
+    whenReady: function() {
+      return Promise.resolve(this.window_metadata);
+    },
+    broadcast: function(data) {}
   };
 }
 
@@ -239,9 +348,8 @@ function _lightdm_mock_check_argument_length(args, length) {
 
 function _lightdm_mock_get_user(username) {
   for (var i = 0; i < lightdm.users.length; i++) {
-    if (lightdm.users[i].name === username) {
-      return lightdm.users[i];
-    }
+    var u = lightdm.users[i];
+    if ((u.username || u.name) === username) return u;
   }
   return null;
 }

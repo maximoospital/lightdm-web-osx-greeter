@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 400">
+  <style>
+    .st0 {
+      fill: none;
+      stroke: #fff;
+      stroke-linecap: round;
+      stroke-width: 22px;
+    }
+  </style>
+  <!-- 6-spoke snowflake: 3 lines through center (175, 200) at 60° intervals -->
+  <!-- Vertical spoke -->
+  <line class="st0" x1="175" y1="30"  x2="175" y2="370"/>
+  <!-- 60° spoke (upper-left to lower-right) -->
+  <line class="st0" x1="28"  y1="115" x2="322" y2="285"/>
+  <!-- 120° spoke (upper-right to lower-left) -->
+  <line class="st0" x1="322" y1="115" x2="28"  y2="285"/>
+  <!-- Branch ticks on top of vertical spoke -->
+  <line class="st0" x1="152" y1="107" x2="175" y2="75"/>
+  <line class="st0" x1="198" y1="107" x2="175" y2="75"/>
+  <!-- Branch ticks on bottom of vertical spoke -->
+  <line class="st0" x1="152" y1="293" x2="175" y2="325"/>
+  <line class="st0" x1="198" y1="293" x2="175" y2="325"/>
+</svg>
