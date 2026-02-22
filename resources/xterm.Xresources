@@ -1,0 +1,54 @@
+! XTerm configuration for lightdm-web-osx-greeter
+
+! Font
+XTerm*faceName:         DejaVu Sans Mono
+XTerm*faceSize:         13
+XTerm*boldMode:         true
+XTerm*renderFont:       true
+
+! Window
+XTerm*internalBorder:   8
+XTerm*scrollBar:        false
+XTerm*saveLines:        10000
+
+! Unicode
+XTerm*utf8:             1
+XTerm*locale:           true
+
+! Input
+XTerm*metaSendsEscape:  true
+XTerm*eightBitInput:    false
+XTerm*altIsNotMeta:     false
+
+! Colors — VS Code Dark+ palette
+XTerm*background:       #1e1e1e
+XTerm*foreground:       #d4d4d4
+XTerm*cursorColor:      #d4d4d4
+XTerm*pointerColor:     #d4d4d4
+XTerm*highlightColor:   #264f78
+XTerm*highlightTextColor: #d4d4d4
+
+! Black
+XTerm*color0:           #1e1e1e
+XTerm*color8:           #808080
+! Red
+XTerm*color1:           #cd3131
+XTerm*color9:           #f44747
+! Green
+XTerm*color2:           #6a9955
+XTerm*color10:          #b5cea8
+! Yellow
+XTerm*color3:           #d7ba7d
+XTerm*color11:          #dcdcaa
+! Blue
+XTerm*color4:           #569cd6
+XTerm*color12:          #4fc1ff
+! Magenta
+XTerm*color5:           #c678dd
+XTerm*color13:          #d16d9e
+! Cyan
+XTerm*color6:           #56b6c2
+XTerm*color14:          #9cdcfe
+! White
+XTerm*color7:           #d4d4d4
+XTerm*color15:          #ffffff

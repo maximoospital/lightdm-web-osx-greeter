@@ -1,0 +1,386 @@
+* {
+    font-weight: normal;
+    font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+    cursor: default;
+}
+
+html {
+    height: 100%;
+}
+
+/* Hide everything until JS initialization completes */
+body.loading {
+    opacity: 0;
+}
+
+body.loaded {
+    opacity: 1;
+    -webkit-transition: opacity 0.4s ease;
+    transition: opacity 0.4s ease;
+}
+
+body {
+    background-color: #515259;
+    display: table;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-size: 10pt;
+    color: white;
+}
+
+/* Caps Lock warning */
+.caps-lock-warning {
+    color: #ffcc00;
+    font-size: 9pt;
+    margin-top: 4px;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 35%, #595b63 0%, #2b2c31 100%);
+    z-index: -2;
+}
+
+.cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: opacity 2s ease;
+    transition: opacity 2s ease;
+}
+
+body.idle .cover {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+body,
+span,
+div,
+img {
+    -webkit-user-select: none;
+}
+
+input {
+    border: none;
+    border-radius: 4px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.82);
+}
+
+a {
+    text-decoration: none;
+}
+
+.smooth {
+    -webkit-transition:
+        visibility 0s,
+        opacity 0.3s,
+        left 0.4s;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.passhidden {
+    opacity: 0;
+    position: relative;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.passsmooth {
+    -webkit-transition: opacity 0.1s;
+}
+
+.center {
+    text-align: center;
+}
+
+.pass {
+    position: relative;
+    top: 4px;
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer,
+.header {
+    width: 100%;
+}
+
+.headertext {
+    float: left;
+    line-height: 25px;
+    font-size: 11pt;
+    margin-left: 10px;
+    margin-top: 5px;
+    opacity: 0.7;
+    text-shadow: 0 1.5px 4.5px rgba(0, 0, 0, 0.5);
+}
+.time {
+    float: right;
+    line-height: 25px;
+    font-size: 11pt;
+    margin-right: 10px;
+    margin-top: 5px;
+    opacity: 0.7;
+    text-shadow: 0 1.5px 4.5px rgba(0, 0, 0, 0.5);
+    font-family:
+        "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.time-colon {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.login_content {
+    display: table-row;
+    top: -100px;
+    position: relative;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 120px;
+}
+
+.apple-logo {
+    width: 100px;
+    height: 100px;
+    background: #838488;
+    -webkit-mask-image: url("../img/logo.svg");
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center 45%;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: url("../img/logo.svg");
+    mask-size: contain;
+    mask-position: center 45%;
+    mask-repeat: no-repeat;
+    box-shadow:
+        0 6px 12px rgba(0, 0, 0, 0.5),
+        inset 0 3px 6px rgba(255, 255, 255, 0.25);
+    position: relative;
+}
+
+.login_container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#message {
+    display: table-row;
+    -webkit-transition:
+        visibility 0s,
+        opacity 0.3s,
+        height 0.3s;
+    height: 130px;
+}
+
+#message.hidden {
+    height: 0px;
+}
+
+#message_content {
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
+}
+
+#message_content.error {
+    color: #ff7b7b;
+    text-shadow: 0 0 10px rgba(255, 60, 60, 0.5);
+}
+
+.user {
+    display: inline-block;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.user:hover {
+    opacity: 1;
+}
+
+.user:active {
+    opacity: 0.5;
+}
+
+.user_image_wrapper {
+    border-radius: 80px;
+    -webkit-transition: all 0.3s ease-in-out;
+    margin: 10px;
+    box-shadow:
+        0 1.5px 0.75px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.15);
+}
+
+.user_image {
+    border-radius: 60px;
+}
+
+.user_image,
+.user_image_wrapper {
+    width: 86px;
+    height: 86px;
+}
+
+.user_name {
+    display: block;
+    margin-top: 20px;
+    opacity: 0.7;
+    text-shadow: 0 1.5px 4.5px rgba(0, 0, 0, 0.5);
+}
+
+.action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    opacity: 0.65;
+    transition: opacity 0.5s ease;
+    width: 80px;
+    flex-shrink: 0;
+}
+
+.action:hover {
+    opacity: 1;
+}
+
+.action_image_wrapper {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #a0a0a0 50%,
+        #666666 100%
+    );
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
+}
+
+.icon-sleep {
+    -webkit-mask-image: url("../img/sleep.svg");
+    mask-image: url("../img/sleep.svg");
+}
+
+.icon-restart {
+    -webkit-mask-image: url("../img/restart.svg");
+    mask-image: url("../img/restart.svg");
+}
+
+.icon-shutdown {
+    -webkit-mask-image: url("../img/shutdown.svg");
+    mask-image: url("../img/shutdown.svg");
+}
+
+#username_field_container {
+    margin-bottom: 8px;
+}
+
+.action_label {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* When a background image is loaded from greeter_config, soften the radial gradient overlay */
+body.has-background::before {
+    background: radial-gradient(
+        circle at 50% 35%,
+        rgba(89, 91, 99, 0.65) 0%,
+        rgba(43, 44, 49, 0.82) 100%
+    );
+}
+
+/* Battery indicator — floats right, left of the clock */
+.battery-indicator {
+    float: right;
+    line-height: 25px;
+    font-size: 10pt;
+    margin-right: 10px;
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0.7;
+    text-shadow: 0 1.5px 4.5px rgba(0, 0, 0, 0.5);
+}
+
+.battery-indicator.hidden {
+    display: none;
+}
+
+.battery-icon {
+    width: 22px;
+    height: 11px;
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    border-radius: 2px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.battery-icon::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 3px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 0 1px 1px 0;
+}
+
+.battery-level {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 1px;
+    -webkit-transition: width 0.5s ease;
+    transition: width 0.5s ease;
+}
+
+.battery-indicator.charging .battery-level {
+    background: rgba(100, 210, 100, 0.9);
+}

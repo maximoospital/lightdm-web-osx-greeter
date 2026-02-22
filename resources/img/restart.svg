@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" version="1.1" viewBox="0 0 350 400">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #fff;
+        stroke-width: 12px;
+      }
+
+      .st0, .st1 {
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .st1 {
+        fill: none;
+        stroke-width: 20px;
+      }
+    </style>
+  </defs>
+  <g id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="restart.svg">
+    <sodipodi:namedview id="base" bordercolor="#666666" borderopacity="1.0" inkscape:current-layer="layer1" inkscape:cx="101.07677" inkscape:cy="145.63126" inkscape:document-units="px" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="721" inkscape:window-maximized="1" inkscape:window-width="1366" inkscape:window-x="0" inkscape:window-y="24" inkscape:zoom="0.84852814" pagecolor="#ffffff" showgrid="false"/>
+    <g id="layer1" inkscape:groupmode="layer" inkscape:label="Layer 1">
+      <path id="path3784" class="st0" d="M123.26,219.36l38.27-25.07,38.27-25.07v100.28l-38.27-25.07-38.27-25.07h0Z" inkscape:flatsided="false" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-x="12.757935" sodipodi:arg1="3.1415927" sodipodi:arg2="4.1887902" sodipodi:cx="288.57144" sodipodi:cy="246.6479" sodipodi:r1="77.14286" sodipodi:r2="38.57143" sodipodi:sides="3" sodipodi:type="star"/>
+      <path id="path2985" class="st1" d="M312.95,222.85c-1.63,75.24-63.92,135-139.31,133.65S38.15,293.19,39.23,217.94,102.17,82.48,177.57,83.28c75.4.81,135.95,62.32,135.41,137.58" sodipodi:cx="180.98811" sodipodi:cy="871.26782" sodipodi:end="0.0014884928" sodipodi:open="true" sodipodi:rx="136.88374" sodipodi:ry="136.6241" sodipodi:start="0.015995771" sodipodi:type="arc"/>
+    </g>
+  </g>
+</svg>
